@@ -5,10 +5,10 @@ edition = "2021"
 default-run = "aoc_2021"
 
 [dependencies]
-aoc_core = { git = "https://github.com/isavegas/aoc_core", tag = "v0.1.10" }
-#aoc_core = { path = "../core" }
+#aoc_core = { git = "https://github.com/isavegas/aoc_core", tag = "v0.1.10" }
+aoc_core = { path = "./aoc_core" }
 automod = "1.0.2"
 
 [build-dependencies]
-aoc_core = { git = "https://github.com/isavegas/aoc_core", tag = "v0.1.10" }
-#aoc_core = { path = "../core" }
+#aoc_core = { git = "https://github.com/isavegas/aoc_core", tag = "v0.1.10" }
+aoc_core = { path = "./aoc_core" }
