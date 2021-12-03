@@ -55,6 +55,7 @@ impl AoCDay for Day03 {
         // Not very efficient, but that's fine considering the scale
         let find_rating = |cmp: fn(usize, usize) -> bool| -> u64 {
             let mut pos = self.data_width;
+            // Clone our data set, as we don't want to clobber the original
             let mut data = input_data.clone();
             while data.len() > 1 {
                 pos -= 1;
@@ -68,12 +69,11 @@ impl AoCDay for Day03 {
                     .collect();
                 std::mem::swap(&mut new_data, &mut data);
             }
+            // Avoid overflowing due to our use of u16 for data points
             data[0] as u64
         };
 
-        let o = find_rating(|a, b| a >= b);
-        let c = find_rating(|a, b| a < b);
-        Ok((o * c).to_string())
+        Ok((find_rating(|a, b| a >= b) * find_rating(|a, b| a < b)).to_string())
     }
 }
 
