@@ -24,7 +24,7 @@ impl AoCDay for Day{0} {{
 pub fn get_day() -> Box<dyn AoCDay> {{
     Box::new(Day{0})
 }}
-"#;
+"#
     };
 }
 
@@ -32,7 +32,7 @@ macro_rules! test_template {
     () => {
         r##"use aoc_2020::day::day_{0}::get_day;
 
-const INPUT: &str = r#""#;
+const INPUT: &str = r#""#
 
 #[test]
 pub fn part1_1() {{
