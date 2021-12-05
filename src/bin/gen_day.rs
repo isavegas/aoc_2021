@@ -1,6 +1,6 @@
 macro_rules! impl_template {
     () => {
-        r#"use aoc_core::{{AoCDay, ErrorWrapper}};
+        r#"use aoc_core::{{AoCDay, ErrorWrapper, parse, bail, ensure}};
 
 pub struct Day{0};
 
@@ -30,9 +30,9 @@ pub fn get_day() -> Box<dyn AoCDay> {{
 
 macro_rules! test_template {
     () => {
-        r##"use aoc_2020::day::day_{0}::get_day;
+        r##"use aoc_2021::day::day_{0}::get_day;
 
-const INPUT: &str = r#""#
+const INPUT: &str = r#""#;
 
 #[test]
 pub fn part1_1() {{
@@ -54,7 +54,7 @@ pub fn part2_1() {{
     );
 }}
 "##
-    }
+    };
 }
 
 use std::fs::OpenOptions;
@@ -86,12 +86,14 @@ pub fn main() {
             );
             write!(f, impl_template!(), num_str).expect("Unable to write file");
             println!("Output file created at {}", day_path);
-            OpenOptions::new()
-                .create_new(true)
-                .write(true)
-                .open(input_path.clone())
-                .expect("Unable to create input file");
-            println!("Input file created at {}", input_path);
+            if !std::fs::metadata(input_path.clone()).is_ok() {
+                OpenOptions::new()
+                    .create_new(true)
+                    .write(true)
+                    .open(input_path.clone())
+                    .expect("Unable to create input file");
+                println!("Input file created at {}", input_path);
+            }
             let test_path = format!(
                 "{}/day_{}.rs",
                 concat!(env!("CARGO_MANIFEST_DIR"), "/tests"),

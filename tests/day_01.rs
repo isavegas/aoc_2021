@@ -13,20 +13,10 @@ const INPUT: &str = r#"199
 
 #[test]
 pub fn part1_1() {
-    assert_eq!(
-        get_day()
-            .part1(INPUT)
-            .expect("Error"),
-        "7".to_string()
-    );
+    assert_eq!(get_day().part1(INPUT).expect("Error"), "7".to_string());
 }
 
 #[test]
 pub fn part2_1() {
-    assert_eq!(
-        get_day()
-            .part2(INPUT)
-            .expect("Error"),
-        "5".to_string()
-    );
+    assert_eq!(get_day().part2(INPUT).expect("Error"), "5".to_string());
 }

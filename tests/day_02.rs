@@ -9,20 +9,10 @@ forward 2"#;
 
 #[test]
 pub fn part1_1() {
-    assert_eq!(
-        get_day()
-            .part1(INPUT)
-            .expect("Error"),
-        "150".to_string()
-    );
+    assert_eq!(get_day().part1(INPUT).expect("Error"), "150".to_string());
 }
 
 #[test]
 pub fn part2_1() {
-    assert_eq!(
-        get_day()
-            .part2(INPUT)
-            .expect("Error"),
-        "900".to_string()
-    );
+    assert_eq!(get_day().part2(INPUT).expect("Error"), "900".to_string());
 }

@@ -17,9 +17,7 @@ const INPUT: &str = r#"00100
 #[test]
 pub fn part1_1() {
     assert_eq!(
-        Day03 { data_width: 5 }
-            .part1(INPUT)
-            .expect("Error"),
+        Day03 { data_width: 5 }.part1(INPUT).expect("Error"),
         "198".to_string()
     );
 }
@@ -27,9 +25,7 @@ pub fn part1_1() {
 #[test]
 pub fn part2_1() {
     assert_eq!(
-        Day03 { data_width: 5 }
-            .part2(INPUT)
-            .expect("Error"),
+        Day03 { data_width: 5 }.part2(INPUT).expect("Error"),
         "230".to_string()
     );
 }

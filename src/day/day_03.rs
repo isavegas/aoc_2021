@@ -9,18 +9,6 @@ pub struct Day03 {
 // Input data width is 12 bits, but a little extra won't hurt
 type Num = u16;
 
-fn parse_binary(input: &str) -> Result<Num, ErrorWrapper> {
-    let mut val = 0;
-    for (i, c) in input.chars().rev().enumerate() {
-        match c {
-            '1' => val |= 0x01 << i,
-            '0' => (),
-            _ => return Err(ErrorWrapper::ParsingError("Expected '1' or '0'".to_string())),
-        }
-    }
-    Ok(val)
-}
-
 impl AoCDay for Day03 {
     fn day(&self) -> usize {
         03
@@ -29,7 +17,7 @@ impl AoCDay for Day03 {
         (Some("4118544"), None)
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let data = parse_with::<Num>(input, parse_binary);
+        let data = parse_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from));
         let mut gamma_rate: u64 = 0;
         let mut epsilon_rate: u64 = 0;
         let mut counters: [usize; 16] = [0; 16];
@@ -50,7 +38,7 @@ impl AoCDay for Day03 {
         Ok((gamma_rate * epsilon_rate).to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let input_data = parse_with::<Num>(input, parse_binary);
+        let input_data = parse_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from));
 
         // Not very efficient, but that's fine considering the scale
         let find_rating = |cmp: fn(usize, usize) -> bool| -> u64 {
@@ -63,11 +51,11 @@ impl AoCDay for Day03 {
                     .map(|d| (*d >> pos) & 0x01)
                     .filter(|d| *d > 0)
                     .count();
-                let mut new_data = data.iter()
+                let new_data = data.iter()
                     .filter(|d| (((**d >> pos) & 0x01) > 0) == cmp(count, data.len() - count))
                     .map(|d| *d)
                     .collect();
-                std::mem::swap(&mut new_data, &mut data);
+                data = new_data;
             }
             // Avoid overflowing due to our use of u16 for data points
             data[0] as u64
