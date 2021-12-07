@@ -6,6 +6,7 @@ year := "2021"
 name := "aoc_{{year}}"
 
 alias di := download_input
+alias gen := generate
 
 # -> list
 @default: list
@@ -13,6 +14,26 @@ alias di := download_input
 # List just targets
 @list:
     just --list --unsorted --list-heading "$(printf 'Targets for {{name}}::\n\r')"
+
+generate day:
+    #!/usr/bin/env sh
+    DAY="$(printf '%02d' {{day}})"
+    IMPL_FILE="{{justfile_directory()}}/src/day/day_$DAY.rs"
+    TEST_FILE="{{justfile_directory()}}/tests/day_$DAY.rs"
+    IMPL_TEMPLATE="$(cat "{{justfile_directory()}}/templates/day.rs")"
+    TEST_TEMPLATE="$(cat "{{justfile_directory()}}/templates/test.rs")"
+    check_file() {
+        if [ -f "$2" ]; then
+            echo "$1 for {{year}} day {{day}} exists at $2"
+            exit 1
+        fi
+    }
+    check_file Implementation "$IMPL_FILE"
+    check_file Tests "$TEST_FILE"
+    echo "${IMPL_TEMPLATE//@DAY@/$DAY}" > "$IMPL_FILE"
+    echo "${TEST_TEMPLATE//@DAY@/$DAY}" > "$TEST_FILE"
+    echo "Implementation for day {{day}} generated at $IMPL_FILE"
+    echo "Tests for day {{day}} generated at $TEST_FILE"
 
 download_input day:
     #!/usr/bin/env sh
