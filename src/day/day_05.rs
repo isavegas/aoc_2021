@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper, parse, Vec2};
+use aoc_core::{AoCDay, ErrorWrapper, parse_lines, Vec2};
 use std::collections::HashMap;
 use std::str::FromStr;
 
@@ -69,10 +69,10 @@ impl FromStr for Segment {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut comps = s.split(" -> ");
         let start = comps.next()
-            .ok_or_else(|| ErrorWrapper::ParsingError("Missing start".to_string()))?
+            .ok_or_else(|| ErrorWrapper::ParseError("Missing start".to_string()))?
             .parse()?;
         let end = comps.next()
-            .ok_or_else(|| ErrorWrapper::ParsingError("Missing start".to_string()))?
+            .ok_or_else(|| ErrorWrapper::ParseError("Missing start".to_string()))?
             .parse()?;
         if comps.next().is_none() {
             Ok(Self::new(
@@ -80,7 +80,7 @@ impl FromStr for Segment {
                 end,
             ))
         } else {
-            Err(ErrorWrapper::ParsingError("Too many components".to_string()))
+            Err(ErrorWrapper::ParseError("Too many components".to_string()))
         }
     }
 }
@@ -109,7 +109,7 @@ impl AoCDay for Day05 {
         (Some("5698"), Some("15463"))
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let vents: Vec<Segment> = parse(input);
+        let vents: Vec<Segment> = parse_lines(input)?;
         let mut map = Map::default();
         for v in &vents {
             map.overlay(v, true);
@@ -119,7 +119,7 @@ impl AoCDay for Day05 {
             .count().to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let vents: Vec<Segment> = parse(input);
+        let vents: Vec<Segment> = parse_lines(input)?;
         let mut map = Map::default();
         for v in &vents {
             map.overlay(v, false);

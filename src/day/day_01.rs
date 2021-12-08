@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper, parse};
+use aoc_core::{AoCDay, ErrorWrapper, parse_lines};
 
 pub struct Day01;
 
@@ -16,7 +16,7 @@ impl AoCDay for Day01 {
         (Some("1301"), Some("1346"))
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let measurements = parse::<Num>(input);
+        let measurements = parse_lines::<Num>(input)?;
         let mut counter: usize = 0;
         for i in 1..measurements.len() {
             if measurements[i] > measurements[i-1] {
@@ -26,7 +26,7 @@ impl AoCDay for Day01 {
         Ok(counter.to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let measurements = parse::<Num>(input);
+        let measurements = parse_lines::<Num>(input)?;
         let mut counter: usize = 0;
         for i in 3..measurements.len() {
             if window_sum(&measurements, i) > window_sum(&measurements, i-1) {

@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper, parse};
+use aoc_core::{AoCDay, ErrorWrapper, parse_lines};
 use std::str::FromStr;
 
 pub struct Day02;
@@ -57,7 +57,7 @@ impl AoCDay for Day02 {
         (Some("1654760"), Some("1956047400"))
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let instructions = parse::<Instruction>(input);
+        let instructions: Vec<Instruction> = parse_lines(input)?;
         let mut distance = 0;
         let mut depth = 0;
         for i in instructions.iter() {
@@ -70,7 +70,7 @@ impl AoCDay for Day02 {
         Ok((distance * depth).to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let instructions = parse::<Instruction>(input);
+        let instructions: Vec<Instruction> = parse_lines(input)?;
         let mut distance: Num = 0;
         let mut depth: Num = 0;
         let mut aim: Num = 0;

@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper, parse_with};
+use aoc_core::{AoCDay, ErrorWrapper, parse_lines_with};
 use std::str::FromStr;
 use std::convert::TryFrom;
 use bitflags::bitflags;
@@ -108,8 +108,8 @@ fn deduce_digits(input: &Vec<Segments>, output: &Vec<Segments>) -> Vec<usize> {
 
 fn parse(line: &str) -> Result<(Vec<Segments>, Vec<Segments>), ErrorWrapper> {
     let mut parts = line.split('|').map(str::trim);
-    let input = parts.next().ok_or_else(||ErrorWrapper::ParsingError("Missing input".to_string()))?;
-    let output = parts.next().ok_or_else(||ErrorWrapper::ParsingError("Missing output".to_string()))?;
+    let input = parts.next().ok_or_else(||ErrorWrapper::ParseError("Missing input".to_string()))?;
+    let output = parts.next().ok_or_else(||ErrorWrapper::ParseError("Missing output".to_string()))?;
     assert_eq!(parts.next(), None, "Too many parts!");
     Ok((
         input.split(' ').map(|s| Segments::from_str(s).expect("Invalid digit in input")).collect(),
@@ -125,7 +125,7 @@ impl AoCDay for Day08 {
         (Some("543"), Some("994266"))
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let data = parse_with(input, parse);
+        let data = parse_lines_with(input, parse)?;
         Ok(data.iter()
             .flat_map(|(_, o)| o)
             .map(Segments::count)
@@ -140,7 +140,7 @@ impl AoCDay for Day08 {
         )
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let data = parse_with(input, parse);
+        let data = parse_lines_with(input, parse)?;
         Ok(data.iter()
             .map(|(i, o)| deduce_digits(i, o))
             .map(|digits| digits.iter()

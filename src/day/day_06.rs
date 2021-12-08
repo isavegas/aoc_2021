@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper};
+use aoc_core::{AoCDay, ErrorWrapper, parse};
 
 pub struct Day06;
 
@@ -36,11 +36,11 @@ impl AoCDay for Day06 {
         (Some("387413"), Some("1738377086345"))
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let fish: Vec<usize> = input.trim().split(',').map(|i| i.parse().expect("Invalid integer")).collect();
+        let fish: Vec<usize> = parse(input, ",")?;
         Ok(simulate(&fish, 80).to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let fish: Vec<usize> = input.trim().split(',').map(|i| i.parse().expect("Invalid integer")).collect();
+        let fish: Vec<usize> = parse(input, ",")?;
         Ok(simulate(&fish, 256).to_string())
     }
 }

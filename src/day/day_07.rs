@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper};
+use aoc_core::{AoCDay, ErrorWrapper, parse};
 
 pub struct Day07;
 
@@ -16,13 +16,13 @@ impl AoCDay for Day07 {
         (Some("342730"), Some("92335207"))
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let mut crabs: Vec<Num> = input.trim().split(',').map(|i| i.parse().expect("Invalid integer")).collect();
+        let mut crabs: Vec<Num> = parse(input, ",")?;
         crabs.sort();
         let alignment = *crabs.get(crabs.len()/2).unwrap();
         Ok(crabs.iter().map(|s| s.abs_diff(alignment)).sum::<Num>().to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let mut crabs: Vec<Num> = input.trim().split(',').map(|i| i.parse().expect("Invalid integer")).collect();
+        let mut crabs: Vec<Num> = parse(input, ",")?;
         crabs.sort();
         // We need to do the division as floats to ensure we can round
         let alignment_a = crabs.iter().sum::<Num>() / crabs.len() as Num;

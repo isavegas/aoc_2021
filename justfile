@@ -16,6 +16,9 @@ alias t := test
 @list:
     just --list --unsorted --list-heading "$(printf 'Targets for {{name}}::\n\r')"
 
+@update_core:
+    git -C aoc_core pull origin master
+
 test day='all':
     #!/usr/bin/env sh
     if [[ "{{day}}" = "all" ]]; then

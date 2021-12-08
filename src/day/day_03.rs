@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper, parse_with};
+use aoc_core::{AoCDay, ErrorWrapper, parse_lines_with};
 
 // Expose struct and data_width field for tests,
 // as the test data provided uses 5 bit data
@@ -17,7 +17,7 @@ impl AoCDay for Day03 {
         (Some("4118544"), None)
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let data = parse_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from));
+        let data = parse_lines_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from))?;
         let mut gamma_rate: u64 = 0;
         let mut epsilon_rate: u64 = 0;
         let mut counters: [usize; 16] = [0; 16];
@@ -38,7 +38,7 @@ impl AoCDay for Day03 {
         Ok((gamma_rate * epsilon_rate).to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let input_data = parse_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from));
+        let input_data = parse_lines_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from))?;
 
         // Not very efficient, but that's fine considering the scale
         let find_rating = |cmp: fn(usize, usize) -> bool| -> u64 {
