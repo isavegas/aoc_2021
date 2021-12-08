@@ -7,6 +7,7 @@ name := "aoc_{{year}}"
 
 alias di := download_input
 alias gen := generate
+alias t := test
 
 # -> list
 @default: list
@@ -14,6 +15,14 @@ alias gen := generate
 # List just targets
 @list:
     just --list --unsorted --list-heading "$(printf 'Targets for {{name}}::\n\r')"
+
+test day='all':
+    #!/usr/bin/env sh
+    if [[ "{{day}}" = "all" ]]; then
+        cargo test
+    else
+        cargo test --test day_"$(printf '%02d' {{day}})"
+    fi
 
 generate day:
     #!/usr/bin/env sh
