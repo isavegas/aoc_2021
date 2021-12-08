@@ -17,7 +17,7 @@ impl AoCDay for Day03 {
         (Some("4118544"), None)
     }
     fn part1(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let data = parse_lines_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from))?;
+        let data: Vec<Num> = parse_lines_with(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from))?;
         let mut gamma_rate: u64 = 0;
         let mut epsilon_rate: u64 = 0;
         let mut counters: [usize; 16] = [0; 16];
@@ -38,7 +38,7 @@ impl AoCDay for Day03 {
         Ok((gamma_rate * epsilon_rate).to_string())
     }
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
-        let input_data = parse_lines_with::<Num>(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from))?;
+        let input_data: Vec<Num> = parse_lines_with(input, |s| Num::from_str_radix(s, 2).map_err(ErrorWrapper::from))?;
 
         // Not very efficient, but that's fine considering the scale
         let find_rating = |cmp: fn(usize, usize) -> bool| -> u64 {
