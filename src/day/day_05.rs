@@ -1,4 +1,4 @@
-use aoc_core::{AoCDay, ErrorWrapper, parse, bail, ensure, Vec2};
+use aoc_core::{AoCDay, ErrorWrapper, parse, Vec2};
 use std::collections::HashMap;
 use std::str::FromStr;
 

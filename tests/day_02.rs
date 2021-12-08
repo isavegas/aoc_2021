@@ -8,11 +8,11 @@ down 8
 forward 2"#;
 
 #[test]
-pub fn part1_1() {
+pub fn part1() {
     assert_eq!(get_day().part1(INPUT).expect("Error"), "150".to_string());
 }
 
 #[test]
-pub fn part2_1() {
+pub fn part2() {
     assert_eq!(get_day().part2(INPUT).expect("Error"), "900".to_string());
 }

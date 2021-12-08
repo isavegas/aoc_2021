@@ -21,11 +21,11 @@ const INPUT: &str = r#"7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,2
  2  0 12  3  7"#;
 
 #[test]
-pub fn part1_1() {
+pub fn part1() {
     assert_eq!(get_day().part1(INPUT).expect("Error"), "4512".to_string());
 }
 
 #[test]
-pub fn part2_1() {
+pub fn part2() {
     assert_eq!(get_day().part2(INPUT).expect("Error"), "1924".to_string());
 }

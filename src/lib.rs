@@ -1,3 +1,5 @@
+#![feature(int_abs_diff)]
+
 pub mod day;
 pub use day::get_days;
 

@@ -12,21 +12,11 @@ const INPUT: &str = r#"0,9 -> 5,9
 5,5 -> 8,2"#;
 
 #[test]
-pub fn part1_1() {
-    assert_eq!(
-        get_day()
-            .part1(INPUT)
-            .expect("Error"),
-        "5".to_string()
-    );
+pub fn part1() {
+    assert_eq!(get_day().part1(INPUT).expect("Error"), "5".to_string());
 }
 
 #[test]
-pub fn part2_1() {
-    assert_eq!(
-        get_day()
-            .part2(INPUT)
-            .expect("Error"),
-        "12".to_string()
-    );
+pub fn part2() {
+    assert_eq!(get_day().part2(INPUT).expect("Error"), "12".to_string());
 }

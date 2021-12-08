@@ -12,11 +12,11 @@ const INPUT: &str = r#"199
 263"#;
 
 #[test]
-pub fn part1_1() {
+pub fn part1() {
     assert_eq!(get_day().part1(INPUT).expect("Error"), "7".to_string());
 }
 
 #[test]
-pub fn part2_1() {
+pub fn part2() {
     assert_eq!(get_day().part2(INPUT).expect("Error"), "5".to_string());
 }

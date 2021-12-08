@@ -3,7 +3,7 @@ use aoc_2021::day::day_@DAY@::get_day;
 const INPUT: &str = r#""#;
 
 #[test]
-pub fn part1_1() {{
+pub fn part1() {{
     assert_eq!(
         get_day()
             .part1(INPUT)
@@ -13,7 +13,7 @@ pub fn part1_1() {{
 }}
 
 #[test]
-pub fn part2_1() {{
+pub fn part2() {{
     assert_eq!(
         get_day()
             .part2(INPUT)
