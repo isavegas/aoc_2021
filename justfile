@@ -8,6 +8,8 @@ name := "aoc_{{year}}"
 alias di := download_input
 alias gen := generate
 alias t := test
+alias wt := watch_test
+alias wr := watch_run
 
 # -> list
 @default: list
@@ -71,3 +73,10 @@ download_input day:
 @info:
     echo {{name}} :: {{os()}} {{arch()}}
 
+# Watch for code changes, running against input
+@watch_run day:
+    cargo watch -x 'run -- run -d {{day}}'
+
+# Watch for code changes, running tests for day
+@watch_test day:
+    cargo watch -x "test --test day_$(printf '%02d' {{day}})"

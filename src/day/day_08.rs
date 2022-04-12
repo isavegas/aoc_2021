@@ -19,9 +19,6 @@ bitflags! {
 }
 
 impl Segments {
-    fn new() -> Self {
-        Segments::NONE
-    }
     fn count(&self) -> usize {
         let mut c: usize = 0;
         for i in 0..8 {
@@ -50,7 +47,7 @@ impl TryFrom<char> for Segments {
 impl FromStr for Segments {
     type Err = &'static str;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut segments = Segments::new();
+        let mut segments = Segments::NONE;
         for c in s.chars() {
             segments |= Segments::try_from(c)?;
         }
@@ -59,7 +56,7 @@ impl FromStr for Segments {
 }
 
 // Probably way more complicated than it needs to be, but it works.
-fn deduce_digits(input: &Vec<Segments>, output: &Vec<Segments>) -> Vec<usize> {
+fn deduce_digits(input: &Vec<Segments>, output: &Vec<Segments>) -> Result<Vec<usize>, ErrorWrapper> {
     let mut map: [Segments; 10] = [Segments::NONE; 10];
     for segments in input {
         match segments.count() {
@@ -103,7 +100,7 @@ fn deduce_digits(input: &Vec<Segments>, output: &Vec<Segments>) -> Vec<usize> {
         .next()
         .expect("Cannot find 2!");
 
-    output.iter().map(|o| map.iter().position(|v| o == v).expect("Missing digit!")).collect()
+    Ok(output.iter().map(|o| map.iter().position(|v| o == v).expect("Missing digit!")).collect())
 }
 
 fn parse(line: &str) -> Result<(Vec<Segments>, Vec<Segments>), ErrorWrapper> {
@@ -142,7 +139,7 @@ impl AoCDay for Day08 {
     fn part2(&self, input: &str) -> Result<String, ErrorWrapper> {
         let data = parse_lines_with(input, parse)?;
         Ok(data.iter()
-            .map(|(i, o)| deduce_digits(i, o))
+            .map(|(i, o)| deduce_digits(i, o).unwrap())
             .map(|digits| digits.iter()
                 .rev()
                 .enumerate()

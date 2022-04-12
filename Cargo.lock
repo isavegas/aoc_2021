@@ -41,8 +41,7 @@ dependencies = [
 [[package]]
 name = "automod"
 version = "1.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27989085bc1962f5d8ad5c2ab819a603b5096590c38a03162443d8a8bc307d0c"
+source = "git+https://github.com/isavegas/automod#68107dcf1b90bf9cc0eae5aafc21cf35566d4325"
 dependencies = [
  "proc-macro2",
  "quote",
